@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\PurchaseRequestDetail;
+use App\Models\PurchaseRequestDetail;
 use Illuminate\Http\Request;
 
 class PurchaseRequestDetailController extends Controller
@@ -41,7 +41,7 @@ class PurchaseRequestDetailController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\PurchaseRequestDetail  $purchaseRequestDetail
+     * @param  \App\Models\PurchaseRequestDetail  $purchaseRequestDetail
      * @return \Illuminate\Http\Response
      */
     public function show(PurchaseRequestDetail $purchaseRequestDetail)
@@ -52,7 +52,7 @@ class PurchaseRequestDetailController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\PurchaseRequestDetail  $purchaseRequestDetail
+     * @param  \App\Models\PurchaseRequestDetail  $purchaseRequestDetail
      * @return \Illuminate\Http\Response
      */
     public function edit(PurchaseRequestDetail $purchaseRequestDetail)
@@ -64,7 +64,7 @@ class PurchaseRequestDetailController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\PurchaseRequestDetail  $purchaseRequestDetail
+     * @param  \App\Models\PurchaseRequestDetail  $purchaseRequestDetail
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, PurchaseRequestDetail $purchaseRequestDetail)
@@ -75,7 +75,7 @@ class PurchaseRequestDetailController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\PurchaseRequestDetail  $purchaseRequestDetail
+     * @param  \App\Models\PurchaseRequestDetail  $purchaseRequestDetail
      * @return \Illuminate\Http\Response
      */
     public function destroy(PurchaseRequestDetail $purchaseRequestDetail)

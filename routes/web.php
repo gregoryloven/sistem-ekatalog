@@ -19,4 +19,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
+
+Route::resource('product', ProductController::class);
+Route::post('/product/EditForm', [ProductController::class, 'EditForm'])->name('product.EditForm');
+
+
 Route::get('/home', 'HomeController@index')->name('home');

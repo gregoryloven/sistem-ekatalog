@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\PurchaseRequest;
+use App\Models\PurchaseRequest;
 use Illuminate\Http\Request;
 
 class PurchaseRequestController extends Controller
@@ -42,7 +42,7 @@ class PurchaseRequestController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\PurchaseRequest  $purchaseRequest
+     * @param  \App\Models\PurchaseRequest  $purchaseRequest
      * @return \Illuminate\Http\Response
      */
     public function show(PurchaseRequest $purchaseRequest)
@@ -53,7 +53,7 @@ class PurchaseRequestController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\PurchaseRequest  $purchaseRequest
+     * @param  \App\Models\PurchaseRequest  $purchaseRequest
      * @return \Illuminate\Http\Response
      */
     public function edit(PurchaseRequest $purchaseRequest)
@@ -65,7 +65,7 @@ class PurchaseRequestController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\PurchaseRequest  $purchaseRequest
+     * @param  \App\Models\PurchaseRequest  $purchaseRequest
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, PurchaseRequest $purchaseRequest)
@@ -76,7 +76,7 @@ class PurchaseRequestController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\PurchaseRequest  $purchaseRequest
+     * @param  \App\Models\PurchaseRequest  $purchaseRequest
      * @return \Illuminate\Http\Response
      */
     public function destroy(PurchaseRequest $purchaseRequest)
