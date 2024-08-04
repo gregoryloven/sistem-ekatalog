@@ -17,7 +17,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="../enduser/assets/img/favicons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../enduser/assets/img/favicons/favicon-16x16.png">
     <link rel="shortcut icon" type="image/x-icon" href="../enduser/assets/img/favicons/favicon.ico">
-    <link rel="manifest" href="../enduser/assets/img/favicons/manifest.html">
+    <!-- <link rel="manifest" href="../enduser/assets/img/favicons/manifest.html"> -->
     <meta name="msapplication-TileImage" content="../enduser/assets/img/favicons/mstile-150x150.html">
     <meta name="theme-color" content="#ffffff">
 
@@ -27,6 +27,7 @@
     <!-- ===============================================-->
     <!--    Stylesheets-->
     <!-- ===============================================-->
+    <link href="../enduser/vendors/swiper/swiper-bundle.min.css" rel="stylesheet">
     <link href="../enduser/vendors/hamburgers/hamburgers.min.css" rel="stylesheet">
     <link href="../enduser/vendors/loaders.css/loaders.min.css" rel="stylesheet">
     <link href="../enduser/assets/css/theme.min.css" rel="stylesheet" />
@@ -46,7 +47,7 @@
       </div>
 
         @include('layouts_enduser.navbar')
-        
+        @include('sweetalert::alert')
         @yield('content')
 
 
@@ -60,6 +61,8 @@
     <script src="../enduser/vendors/popper/popper.min.js"></script>
     <script src="../enduser/vendors/bootstrap/bootstrap.min.js"></script>
     <script src="../enduser/vendors/is/is.min.js"></script>
+    <!-- <script src="../enduser/vendors/bigpicture/BigPicture.js"> </script> -->
+    <script src="../enduser/vendors/swiper/swiper-bundle.min.js"></script>
     <script src="../enduser/vendors/fontawesome/all.min.js"></script>
     <script src="../enduser/vendors/rellax/rellax.min.js"></script>
     <script src="../enduser/vendors/lodash/lodash.min.js"></script>
@@ -67,6 +70,7 @@
     <script src="../enduser/vendors/gsap/gsap.js"></script>
     <script src="../enduser/vendors/gsap/customEase.js"></script>
     <script src="../enduser/assets/js/theme.js"></script>
+
 
 </body>
 </html>
