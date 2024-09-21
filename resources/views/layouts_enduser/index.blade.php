@@ -71,6 +71,6 @@
     <script src="../enduser/vendors/gsap/customEase.js"></script>
     <script src="../enduser/assets/js/theme.js"></script>
 
-
+    @yield('javascript')
 </body>
 </html>

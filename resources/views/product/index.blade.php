@@ -38,18 +38,18 @@
                                 @foreach($data as $d)
                                 @php $i += 1; @endphp
                                 <tr>
-                                    <td>@php echo $i; @endphp</td>
-                                    <td>{{$d->nama}}</td>
-                                    <td>
+                                    <td style="text-align: center; vertical-align: middle;">@php echo $i; @endphp</td>
+                                    <td style="text-align: center; vertical-align: middle;">{{$d->nama}}</td>
+                                    <td style="text-align: center; vertical-align: middle;">
                                         @if(isset($d->harga))
                                             {{ number_format($d->harga, 0, ',', '.') }}
                                         @else
                                             0
                                         @endif
                                     </td>
-                                    <td>{{$d->deskripsi}}</td>
+                                    <td style="text-align: center; vertical-align: middle;">{{$d->deskripsi}}</td>
                                     <td><img src="{{asset('foto/'.$d->foto)}}" height='80px'/></td>
-                                    <td>
+                                    <td style="text-align: center; vertical-align: middle;">
                                         <form id="delete-form-{{ $d->id }}" action="{{ route('product.destroy', $d->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')

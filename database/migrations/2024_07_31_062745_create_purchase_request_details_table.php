@@ -18,7 +18,6 @@ class CreatePurchaseRequestDetailsTable extends Migration
             $table->unsignedBigInteger('purchase_id');
             $table->unsignedBigInteger('product_id');
             $table->integer('qty');
-            $table->integer('harga_per_pcs');
             $table->foreign('purchase_id')->references('id')->on('purchase_requests');
             $table->foreign('product_id')->references('id')->on('products');
             $table->timestamps();
