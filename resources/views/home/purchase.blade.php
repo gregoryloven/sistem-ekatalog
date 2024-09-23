@@ -1,5 +1,11 @@
 @extends('layouts_enduser.index')
 
+<style>
+  .btn-hapus{
+    background-color: red !important;
+  }
+</style>
+
 @section('content')
 
     <section class="py-9 overflow-hidden text-center" data-zanim-timeline="{}" data-zanim-trigger="scroll">
@@ -23,6 +29,7 @@
                 <div class="card-body p-5">
                   <h4>Formulir Pemesanan</h4>
                   <form id="purchaseForm"  action="{{ url('purchase-request') }}" method="POST" class="mt-3">
+                    @csrf
                     <div class="row">
                       <div class="col-12">
                         <input class="form-control bg-white" type="text" name="nama_penerima" placeholder="Nama Penerima" required="required" />
@@ -65,6 +72,7 @@
 @endsection
 
 @section('javascript')
+
 <script>
     const productTable = document.getElementById('productTable');
     const addRowButton = document.getElementById('addrow');
@@ -110,6 +118,7 @@
         // Tombol hapus
         const removeButton = document.createElement('button');
         removeButton.classList.add('btn', 'btn-danger');
+        removeButton.classList.add('btn', 'btn-hapus');
         removeButton.textContent = 'Hapus';
         removeButton.onclick = function() {
             productTable.removeChild(row);
@@ -119,6 +128,7 @@
         const tdProduct = document.createElement('td');
         const tdQuantity = document.createElement('td');
         const tdAction = document.createElement('td');
+        
         tdProduct.appendChild(productDropdown);
         tdQuantity.appendChild(productQuantity);
         tdAction.appendChild(removeButton);

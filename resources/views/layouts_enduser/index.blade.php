@@ -27,6 +27,7 @@
     <!-- ===============================================-->
     <!--    Stylesheets-->
     <!-- ===============================================-->
+    <link href="../enduser/vendors/prism/prism.css" rel="stylesheet">
     <link href="../enduser/vendors/swiper/swiper-bundle.min.css" rel="stylesheet">
     <link href="../enduser/vendors/hamburgers/hamburgers.min.css" rel="stylesheet">
     <link href="../enduser/vendors/loaders.css/loaders.min.css" rel="stylesheet">
@@ -62,6 +63,7 @@
     <script src="../enduser/vendors/bootstrap/bootstrap.min.js"></script>
     <script src="../enduser/vendors/is/is.min.js"></script>
     <!-- <script src="../enduser/vendors/bigpicture/BigPicture.js"> </script> -->
+    <script src="../enduser/vendors/prism/prism.js"></script>
     <script src="../enduser/vendors/swiper/swiper-bundle.min.js"></script>
     <script src="../enduser/vendors/fontawesome/all.min.js"></script>
     <script src="../enduser/vendors/rellax/rellax.min.js"></script>

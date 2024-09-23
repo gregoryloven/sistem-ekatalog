@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PurchaseRequest;
+use App\Models\PurchaseRequestDetail;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -65,19 +66,21 @@ class PurchaseRequestController extends Controller
         // Buat nomor pesanan baru dengan format PR-XXX-YYYYMMDD
         $noPesanan = 'PR-' . $newOrderNumber . '-' . $today;
 
+        $purchaseRequest = PurchaseRequest::create([
+            'no_pesanan' => $noPesanan,
+            'nama_penerima' => $request->input('nama_penerima'),
+            'no_telp_penerima' => $request->input('no_telp_penerima'),
+            'alamat_penerima' => $request->input('alamat_penerima'),
+            'status' => 1,
+        ]);
+
+        $purchaseId = $purchaseRequest->id;
+
         foreach ($productIds as $index => $productId) {
             $quantity = $quantities[$index];
 
-            // Simpan pembelian ke dalam tabel `purchase`
-            PurchaseRequest::create([
-                'no_pesanan' => $noPesanan,
-                'nama_penerima' => $request->input('nama_penerima'),
-                'no_telp_penerima' => $request->input('no_telp_penerima'),
-                'alamat_penerima' => $request->input('alamat_penerima'),
-    
-            ]);
-
             PurchaseRequestDetail::create([
+                'purchase_id' => $purchaseId,
                 'product_id' => $productId,
                 'qty' => $quantity,
             ]);
