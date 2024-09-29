@@ -74,6 +74,8 @@
         <div class="bg-holder overlay overlay-1" style="background-image:url(../enduser/assets/img/login.jpg);"></div>
         <!--/.bg-holder-->
         <div class="container">
+          <form method="POST" action="{{ route('login') }}">
+            @csrf
           <div class="row min-vh-100 align-items-center justify-content-center pt-11 pb-8">
             <div class="col-md-7 col-lg-6 col-xl-5 mx-auto" data-zanim-timeline="{}" data-zanim-trigger="scroll">
               <div class="overflow-hidden">
@@ -84,12 +86,12 @@
                       <div class="row align-items-center">
                         <div class="col-12">
                           <div class="input-group">
-                            <div class="input-group-text bg-100"><span class="far fa-user"></span></div><input class="form-control" type="text" placeholder="Email or username" aria-label="Text input with dropdown button" />
+                            <div class="input-group-text bg-100"><span class="far fa-user"></span></div><input class="form-control" type="text" name="email" placeholder="Email or username" aria-label="Text input with dropdown button" />
                           </div>
                         </div>
                         <div class="col-12 mt-2 mt-sm-4">
                           <div class="input-group">
-                            <div class="input-group-text bg-100"><span class="fas fa-lock"></span></div><input class="form-control" type="Password" placeholder="Password" aria-label="Text input with dropdown button" />
+                            <div class="input-group-text bg-100"><span class="fas fa-lock"></span></div><input class="form-control" type="Password" name="password" placeholder="Password" aria-label="Text input with dropdown button" />
                           </div>
                         </div>
                       </div>
@@ -105,6 +107,7 @@
               </div>
             </div>
           </div>
+          </form>
         </div><!-- end of .container-->
       </section>
 @endsection

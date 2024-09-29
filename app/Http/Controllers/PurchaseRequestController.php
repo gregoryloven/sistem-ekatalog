@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PurchaseRequest;
-use App\Models\PurchaseRequestDetail;
+use session;
+use Carbon\Carbon;
 use App\Models\Product;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
+use App\Models\PurchaseRequest;
+use App\Models\PurchaseRequestDetail;
 
 class PurchaseRequestController extends Controller
 {
@@ -59,10 +60,10 @@ class PurchaseRequestController extends Controller
             // Ini asumsinya no_pesanan berbentuk PR-XXX-YYYYMMDD, jadi kita ambil bagian XXX
             $lastOrderNumber = (int) substr($lastOrder->no_pesanan, 3, 3); // Ambil bagian XXX
         }
-    
+
         // Tambah 1 untuk nomor urut yang baru
         $newOrderNumber = str_pad($lastOrderNumber + 1, 3, '0', STR_PAD_LEFT);
-    
+
         // Buat nomor pesanan baru dengan format PR-XXX-YYYYMMDD
         $noPesanan = 'PR-' . $newOrderNumber . '-' . $today;
 
@@ -85,6 +86,25 @@ class PurchaseRequestController extends Controller
                 'qty' => $quantity,
             ]);
         }
+
+        $productsWithNames = [];
+        foreach ($productIds as $productId) {
+            $product = Product::find($productId);
+            if ($product) {
+                $productsWithNames[] = $product->nama; // Asumsi 'nama' adalah kolom nama produk
+            }
+        }
+
+        // Store data in session for WhatsApp message
+        session([
+            'data' => [
+                'nama_penerima' => $request->input('nama_penerima'),
+                'no_telp_penerima' => $request->input('no_telp_penerima'),
+                'alamat_penerima' => $request->input('alamat_penerima'),
+                'products' => $productsWithNames,
+                'quantities' => $quantities,
+            ]
+        ]);
 
         return redirect()->back()->with('success', 'Pesanan berhasil dibuat dengan nomor: ' . $noPesanan);
     }

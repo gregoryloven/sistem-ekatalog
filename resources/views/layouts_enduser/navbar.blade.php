@@ -1,17 +1,14 @@
 <div class="fixed-top">
     <div class="container px-0">
-        <nav class="navbar navbar-expand-lg navbar-freya navbar-light"> <a class="navbar-brand" href="../index.html">
-            <div class="freya-logo">Freya</div>
+        <nav class="navbar navbar-expand-lg navbar-freya navbar-light"> <a class="navbar-brand" href="/">
+            <div class="freya-logo">Home</div>
         </a><button class="navbar-toggler p-0 border-0" type="button" data-bs-toggle="collapse" data-bs-target="#primaryNavbarCollapse" aria-controls="primaryNavbarCollapse" aria-expanded="false" aria-label="Toggle navigation"><span class="hamburger hamburger--emphatic"><span class="hamburger-box"><span class="hamburger-inner"></span></span></span></button>
         <div class="collapse navbar-collapse" id="primaryNavbarCollapse">
             <ul class="navbar-nav py-3 py-lg-0 mt-1 mb-2 my-lg-0 ms-lg-n1">
                 <li><a class="dropdown-item" href="/purchase-request">Form Pemesanan</a></li>
             </ul>
             <ul class="navbar-nav ms-lg-auto flex-row justify-content-center py-3 py-lg-0 me-n2">
-            <li><a class="nav-link px-2" href="#"><span class="fab fa-facebook-f" data-fa-transform="shrink-2"></span></a></li>
-            <li><a class="nav-link px-2" href="#"><span class="fab fa-twitter" data-fa-transform="shrink-2"></span></a></li>
-            <li><a class="nav-link px-2" href="#"><span class="fab fa-instagram" data-fa-transform="shrink-2"></span></a></li>
-            <li><a class="nav-link px-2" href="#"><span class="fab fa-dribbble" data-fa-transform="shrink-2"></span></a></li>
+            
             </ul>
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
@@ -21,9 +18,9 @@
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                             @if (Route::has('register'))
-                                <li class="nav-item">
+                                {{--  <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
+                                </li>  --}}
                             @endif
                         @else
                             <li class="nav-item dropdown">

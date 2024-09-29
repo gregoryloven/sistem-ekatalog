@@ -19,9 +19,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
-
-Route::resource('product', ProductController::class);
-Route::post('/product/EditForm', [ProductController::class, 'EditForm'])->name('product.EditForm');
+route::middleware(['auth'])->group(function () {
+    Route::resource('product', ProductController::class);
+    Route::post('/product/EditForm', [ProductController::class, 'EditForm'])->name('product.EditForm');
+});
 
 Route::get('/purchase-request/cariProduk', [App\Http\Controllers\PurchaseRequestController::class, 'cariProduk']);
 
