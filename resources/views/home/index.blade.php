@@ -23,9 +23,7 @@
                         </div>
                       </div>
                       <div class="col text-lg-end">
-                        <div class="overflow-hidden">
-                          <div data-zanim-xs='{"from":{"opacity":0,"x":-30},"to":{"opacity":1,"x":0},"delay":0.2}'><a class="btn btn-sm btn-outline-white" href="#!">View Case Study</a></div>
-                        </div>
+                        
                       </div>
                     </div>
                   </div>
@@ -48,9 +46,7 @@
                         </div>
                       </div>
                       <div class="col text-lg-end">
-                        <div class="overflow-hidden">
-                          <div data-zanim-xs='{"from":{"opacity":0,"x":-30},"to":{"opacity":1,"x":0},"delay":0.2}'><a class="btn btn-sm btn-outline-white" href="#!">More about Freya</a></div>
-                        </div>
+                        
                       </div>
                     </div>
                   </div>
@@ -73,9 +69,7 @@
                         </div>
                       </div>
                       <div class="col text-lg-end">
-                        <div class="overflow-hidden">
-                          <div data-zanim-xs='{"from":{"opacity":0,"x":-30},"to":{"opacity":1,"x":0},"delay":0.2}'><a class="btn btn-sm btn-outline-white" href="#!">More about Sorption</a></div>
-                        </div>
+                        
                       </div>
                     </div>
                   </div>

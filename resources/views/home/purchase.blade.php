@@ -8,12 +8,12 @@
 
 @section('content')
     <section class="py-9 overflow-hidden text-center" data-zanim-timeline="{}" data-zanim-trigger="scroll">
-        <div class="bg-holder overlay overlay-1" style="background-image:url(../assets/img/contacts_header.jpg);"
+        <div class="bg-holder overlay overlay-1" style="background-image:url(../assets/img/elements_header.jpg);"
             data-parallax="data-parallax"></div>
         <!--/.bg-holder-->
         <div class="container">
             <div class="overflow-hidden">
-                <h1 class="fs-5 fs-sm-6 text-white mb-3" data-zanim-xs='{"delay":0}'>Hire Us</h1>
+                <h1 class="fs-5 fs-sm-6 text-white mb-3" data-zanim-xs='{"delay":0}'>Formulir Pemesanan</h1>
             </div>
             <div class="overflow-hidden">
                 <p class="fs-2 fw-light ls text-400 text-uppercase" data-zanim-xs='{"delay":0.1}'>We're Here for You</p>
