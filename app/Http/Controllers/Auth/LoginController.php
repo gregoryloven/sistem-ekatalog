@@ -30,12 +30,13 @@ class LoginController extends Controller
     protected function redirectTo()
     {
         $user = auth()->user();
-
+        
         if ($user) {
-            return '/product'; // Jika ada user, arahkan ke /product
+            return '/product';
+        } else {
+            return '/';
         }
 
-        return '/'; // Jika tidak ada user, arahkan ke /
     }
 
     /**

@@ -84,7 +84,28 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $product->nama = $request->nama;
+        $product->harga = str_replace('.', '', $request->harga);
+        $product->deskripsi = $request->deskripsi;
+        
+        if ($request->hasFile('foto')) {
+            $file = $request->file('foto');
+            $imgFolder = 'foto/';
+            $extension = $file->extension();
+            $imgFile = time() . "_" . $request->get('nama') . "." . $extension;
+            $file->move($imgFolder, $imgFile);
+    
+            $oldFilePath = $imgFolder . $product->foto;
+            if (file_exists($oldFilePath)) {
+                unlink($oldFilePath);
+            }
+    
+            $product->foto = $imgFile;
+        }
+
+        $product->save();
+
+        return redirect()->route('product.index')->withToastSuccess('Data produk berhasil diubah');
     }
 
     /**
@@ -95,6 +116,28 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        try {
+            $imgFolder = 'foto/';
+            $filePath = $imgFolder . $product->foto;
+
+            if (file_exists($filePath)) {
+                unlink($filePath);
+            }
+            $product->delete();
+            
+            return redirect()->route('product.index')->withToastSuccess('Data produk berhasil dihapus');
+        } catch (\Exception $e) {
+            return redirect()->route('product.index')->withToastError('Data produk gagal dihapus karena digunakan pada data lain');
+        }
+    }
+
+    public function EditForm(Request $request)
+    {
+        $id = $request->get("id");
+        $data = Product::find($id);
+
+        return response()->json(array(
+            'status'=>'oke',
+            'msg'=>view('product.EditForm',compact('data'))->render()),200);
     }
 }

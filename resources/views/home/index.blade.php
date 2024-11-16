@@ -16,10 +16,10 @@
                     <div class="row align-items-end">
                       <div class="col-lg">
                         <div class="overflow-hidden">
-                          <p class="mb-1 text-uppercase ls" data-zanim-xs='{"from":{"opacity":0,"x":-30},"to":{"opacity":1,"x":0},"delay":0.1}'>AvePoint Richmond</p>
+                          <p class="mb-1 text-uppercase ls" data-zanim-xs='{"from":{"opacity":0,"x":-30},"to":{"opacity":1,"x":0},"delay":0.1}'></p>
                         </div>
                         <div class="overflow-hidden">
-                          <h2 class="text-white fw-normal mb-4 mb-lg-0" data-zanim-xs='{"from":{"opacity":0,"x":-30},"to":{"opacity":1,"x":0},"delay":0}'>More livable spaces</h2>
+                          <h2 class="text-white fw-normal mb-4 mb-lg-0" data-zanim-xs='{"from":{"opacity":0,"x":-30},"to":{"opacity":1,"x":0},"delay":0}'></h2>
                         </div>
                       </div>
                       <div class="col text-lg-end">
@@ -39,10 +39,10 @@
                     <div class="row align-items-end">
                       <div class="col-lg">
                         <div class="overflow-hidden">
-                          <p class="mb-1 text-uppercase ls" data-zanim-xs='{"from":{"opacity":0,"x":-30},"to":{"opacity":1,"x":0},"delay":0.1}'>French Valley</p>
+                          <p class="mb-1 text-uppercase ls" data-zanim-xs='{"from":{"opacity":0,"x":-30},"to":{"opacity":1,"x":0},"delay":0.1}'></p>
                         </div>
                         <div class="overflow-hidden">
-                          <h2 class="text-white fw-normal mb-4 mb-lg-0" data-zanim-xs='{"from":{"opacity":0,"x":-30},"to":{"opacity":1,"x":0},"delay":0}'>Luxurious Apartment</h2>
+                          <h2 class="text-white fw-normal mb-4 mb-lg-0" data-zanim-xs='{"from":{"opacity":0,"x":-30},"to":{"opacity":1,"x":0},"delay":0}'></h2>
                         </div>
                       </div>
                       <div class="col text-lg-end">
@@ -62,10 +62,10 @@
                     <div class="row align-items-end">
                       <div class="col-lg">
                         <div class="overflow-hidden">
-                          <p class="mb-1 text-uppercase ls" data-zanim-xs='{"from":{"opacity":0,"x":-30},"to":{"opacity":1,"x":0},"delay":0.1}'>Upper Chesterfield</p>
+                          <p class="mb-1 text-uppercase ls" data-zanim-xs='{"from":{"opacity":0,"x":-30},"to":{"opacity":1,"x":0},"delay":0.1}'></p>
                         </div>
                         <div class="overflow-hidden">
-                          <h2 class="text-white fw-normal mb-4 mb-lg-0" data-zanim-xs='{"from":{"opacity":0,"x":-30},"to":{"opacity":1,"x":0},"delay":0}'>Sorption Marking Studio</h2>
+                          <h2 class="text-white fw-normal mb-4 mb-lg-0" data-zanim-xs='{"from":{"opacity":0,"x":-30},"to":{"opacity":1,"x":0},"delay":0}'></h2>
                         </div>
                       </div>
                       <div class="col text-lg-end">
@@ -88,35 +88,35 @@
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-md-10">
-              <h3 class="mb-4">Indoraya Sentosa Acrylic Company is a leading manufacturer specializing in the production of acrylic sheets, acrylic accessories, and finished products made from acrylic materials</h3>
-              <p>Acrylic manufacturer in Indonesia No. 1</p>
+              <h3 class="mb-4">Perusahaan Acrylic Indoraya Sentosa merupakan perusahaan manufaktur terkemuka yang bergerak di bidang produksi lembaran akrilik, aksesoris akrilik, dan produk jadi berbahan dasar akrilik.</h3>
+              <p>Produsen Akrilik No. 1 di Indonesia</p>
             </div>
           </div>
           <div class="row mt-6">
             <div class="col-lg-4">
               <div class="row align-items-center">
-                <div class="col-md-6 col-lg-12"><img class="img-fluid" src="assets/img/img_1.jpg" alt="Residential" /></div>
+                <div class="col-md-6 col-lg-12"><img class="img-fluid" src="assets/img/akrilik1.jpg" alt="Residential" /></div>
                 <div class="col-md-6 col-lg-12 text-md-start text-lg-center">
-                  <h5 class="ls text-uppercase mt-4 mb-3">Unmatched Quality and Innovation</h5>
-                  <p class="text-justify">We deliver high-quality products using state-of-the-art technology and continuously innovate to provide cutting-edge solutions.</p>
+                  <h5 class="ls text-uppercase mt-4 mb-3">Kualitas dan Inovasi yang Tak Tertandingi</h5>
+                  <p class="text-justify">Kami menyediakan produk berkualitas tinggi menggunakan teknologi canggih dan terus berinovasi untuk menyediakan solusi mutakhir.</p>
                 </div>
               </div>
             </div>
             <div class="col-lg-4 mt-4 mt-lg-0">
               <div class="row align-items-center">
-                <div class="col-md-6 col-lg-12"><img class="img-fluid" src="assets/img/img_2.jpg" alt="Commercial" /></div>
+                <div class="col-md-6 col-lg-12"><img class="img-fluid" src="assets/img/akrilik2.jpg" alt="Commercial" /></div>
                 <div class="col-md-6 col-lg-12 text-md-start text-lg-center">
-                  <h5 class="ls text-uppercase mt-4 mb-3">Expertise and Experience</h5>
-                  <p class="text-justify">With years of industry experience, our skilled team can handle complex requirements and consistently deliver successful projects.</p>
+                  <h5 class="ls text-uppercase mt-4 mb-3">Keahlian dan Pengalaman</h5>
+                  <p class="text-justify">Dengan pengalaman industri selama bertahun-tahun, tim terampil kami dapat menangani persyaratan yang kompleks dan secara konsisten memberikan proyek yang sukses.</p>
                 </div>
               </div>
             </div>
             <div class="col-lg-4 mt-4 mt-lg-0">
               <div class="row align-items-center">
-                <div class="col-md-6 col-lg-12"><img class="img-fluid" src="assets/img/img_3.jpg" alt="Hospitality" /></div>
+                <div class="col-md-6 col-lg-12"><img class="img-fluid" src="assets/img/akrilik3.jpg" alt="Hospitality" /></div>
                 <div class="col-md-6 col-lg-12 text-md-start text-lg-center">
-                  <h5 class="ls text-uppercase mt-4 mb-3">Customer-Centric Approach</h5>
-                  <p class="text-justify">We prioritize our customers, offering personalized service and tailored solutions to ensure a smooth and satisfying experience.</p>
+                  <h5 class="ls text-uppercase mt-4 mb-3">Pendekatan Berpusat pada Pelanggan</h5>
+                  <p class="text-justify">Kami mengutamakan pelanggan kami, menawarkan layanan yang dipersonalisasi dan solusi yang disesuaikan untuk memastikan pengalaman yang lancar dan memuaskan.</p>
                 </div>
               </div>
             </div>
@@ -142,14 +142,30 @@
           <div class="row justify-content-center">
             <div class="col-md-10 col-lg-8">
               <h3 class="mb-4">Top Product's</h3>
-              <p class="mb-7">Our company is supported by advanced machinery and skilled human resources to apply and integrate all acrylic product needs, both small and large. See the latest examples of our best products.</p>
+              <p class="mb-7">Perusahaan kami didukung oleh mesin canggih dan sumber daya manusia yang terampil untuk menerapkan dan mengintegrasikan semua kebutuhan produk akrilik, baik kecil maupun besar. Lihat contoh terbaru dari produk terbaik kami.</p>
             </div>
           </div>
+
+          <!-- <div class="row">
+            @foreach($data as $d)
+            <div class="col-lg-6 mb-4"><img class="w-100" src= "{{asset('foto/'.$d->foto)}}"></div>
+            @endforeach
+          </div> -->
+
           <div class="row">
-            <div class="col-lg-6 mb-4"><img class="w-100" src="../enduser/assets/img/1.jpg" alt="gallery image"></div>
-            <div class="col-lg-6 mb-4"><img class="w-100" src="../enduser/assets/img/2.jpg" alt="gallery image"></div>
-            <div class="col-lg-6 mb-4"><img class="w-100" src="../enduser/assets/img/3.jpg" alt="gallery image"></div>
-            <div class="col-lg-6 mb-4"><img class="w-100" style="height: 718px;" src="../enduser/assets/img/4.jpg" alt="gallery image"></div>
+            @foreach($data as $d)
+            <div class="col-lg-6 mb-4">
+                <div class="card">
+                    <img class="card-img-top w-100" src="{{ asset('foto/' . $d->foto) }}" alt="Product Image">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $d->nama }}</h5>
+                        <p class="card-text"><strong>Harga:</strong> {{ number_format($d->harga, 0, ',', '.') }}</p>
+                        <p class="card-text">{{ $d->deskripsi }}</p>
+                        <a href="/purchase-request" class="btn btn-primary">Pesan</a>
+                    </div>
+                </div>
+            </div>
+            @endforeach
           </div>
         </div><!-- end of .container-->
     </section>

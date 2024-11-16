@@ -13,15 +13,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home.index');
-});
+// Route::get('/', function () {
+//     return view('home.index');
+// });
+
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
 
 Auth::routes();
 
 route::middleware(['auth'])->group(function () {
     Route::resource('product', ProductController::class);
-    Route::post('/product/EditForm', [ProductController::class, 'EditForm'])->name('product.EditForm');
+    Route::post('/product/EditForm', [App\Http\Controllers\ProductController::class, 'EditForm'])->name('product.EditForm');
 });
 
 Route::get('/purchase-request/cariProduk', [App\Http\Controllers\PurchaseRequestController::class, 'cariProduk']);

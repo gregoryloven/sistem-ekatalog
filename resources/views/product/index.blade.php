@@ -27,7 +27,7 @@
                                 <tr>
                                     <th width="10%">No</th>
                                     <th>Nama</th>
-                                    <th>Harga</th>
+                                    <th>Harga (Rp.)</th>
                                     <th>Deskripsi</th>
                                     <th>Foto</th>
                                     <th width="20%"><i class="fa fa-cog"></i></th>
