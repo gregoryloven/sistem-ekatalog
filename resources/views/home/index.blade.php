@@ -160,7 +160,8 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ $d->nama }}</h5>
                         <p class="card-text"><strong>Harga:</strong> {{ number_format($d->harga, 0, ',', '.') }}</p>
-                        <p class="card-text">{{ $d->deskripsi }}</p>
+                        <p class="card-text text-start">{!! $d->formatted_description !!}</p>
+
                         <a href="/purchase-request" class="btn btn-primary">Pesan</a>
                     </div>
                 </div>

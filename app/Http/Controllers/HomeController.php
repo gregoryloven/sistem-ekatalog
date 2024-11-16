@@ -26,6 +26,28 @@ class HomeController extends Controller
     {
         $data = Product::all();
         
+        $data->each(function ($item) {
+            $item->formatted_description = $this->formatDescription($item->deskripsi);
+        });
+        
         return view('home.index', compact('data'));
     }
+
+    // private function formatDescription($text)
+    // {
+    //     // Tambahkan newline sebelum setiap angka diikuti titik
+    //     return preg_replace('/(\d+\.)/', '<br><strong>$1</strong>', $text);
+    // }
+
+    private function formatDescription($text)
+    {
+        // Menambahkan <br> sebelum angka yang diikuti dengan titik
+        $text = preg_replace('/(\d+\.)/', '<br><strong>$1</strong>', $text);
+
+        // Menambahkan <br> untuk tanda minus (-) di awal kalimat tanpa mengubah menjadi <li>
+        $text = preg_replace('/\s*-\s*/', '<br>- ', $text);
+
+        return $text;
+    }
+
 }
