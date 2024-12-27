@@ -14,7 +14,8 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        //
+        $data = Payment::all();
+        return view('home.payment', compact('data'));
     }
 
     /**
@@ -35,7 +36,19 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = new Payment();
+        $data->kode = $request->kode;
+        
+        $file=$request->file('foto');
+        $imgFolder = 'foto/';
+        $extension = $request->file('foto')->extension();
+        $imgFile=time()."_".$request->get('nama').".".$extension;
+        $file->move($imgFolder,$imgFile);
+        $data->foto=$imgFile;
+
+        $data->save();
+
+        return redirect()->back()->with('success', 'Bukti Pembayaran berhasil diupload');
     }
 
     /**
