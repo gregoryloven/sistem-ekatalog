@@ -6,6 +6,7 @@
             <ul class="sidebar-menu">
                 <li><a class="nav-link" href="/"><i class="fas fa-fire"></i> <span>Home</span></a></li>
                 <li><a class="nav-link" href="/product"><i class="fas fa-list-alt"></i> <span>Produk</span></a></li>
+                <li><a class="nav-link" href="/payment"><i class="fas fa-money-bill"></i> <span>Bukti Bayar</span></a></li>
             </ul>
             
         </aside>

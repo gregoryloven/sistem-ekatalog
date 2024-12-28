@@ -17,6 +17,7 @@ class CreatePaymentsTable extends Migration
             $table->id();
             $table->string('kode');
             $table->string('foto');
+            $table->integer('status');
             $table->timestamps();
         });
     }

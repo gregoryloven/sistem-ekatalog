@@ -15,7 +15,21 @@ class PaymentController extends Controller
     public function index()
     {
         $data = Payment::all();
-        return view('home.payment', compact('data'));
+        return view('payment.index', compact('data'));
+    }
+
+    public function filterPayments(Request $request)
+    {
+        // Ambil parameter 'status' dari request
+        $status = $request->input('status');
+
+        // Query data berdasarkan status
+        $data = Payment::where('status', $status)->get();
+
+        // Mengembalikan respons dalam format JSON
+        return response()->json([
+            'data' => $data
+        ]);
     }
 
     /**
@@ -38,6 +52,7 @@ class PaymentController extends Controller
     {
         $data = new Payment();
         $data->kode = $request->kode;
+        $data->status = 1;
         
         $file=$request->file('foto');
         $imgFolder = 'foto/';
@@ -80,9 +95,21 @@ class PaymentController extends Controller
      * @param  \App\Models\Payment  $payment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Payment $payment)
+    public function update(Request $request, $id)
     {
-        //
+        $payment = Payment::find($id);
+
+        if ($payment) {
+            // Perbarui status berdasarkan input dari AJAX
+            $payment->status = $request->status;  // Status yang dikirimkan dari frontend
+            $payment->save();  // Simpan perubahan
+
+            // Mengembalikan respon sukses
+            return response()->json(['status' => 'success']);
+        }
+
+        // Mengembalikan respon error jika pembayaran tidak ditemukan
+        return response()->json(['status' => 'error'], 404);
     }
 
     /**
