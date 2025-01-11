@@ -88,7 +88,7 @@
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-md-10">
-              <h3 class="mb-4">Perusahaan Acrylic Indoraya Sentosa merupakan perusahaan manufaktur terkemuka yang bergerak di bidang produksi lembaran akrilik, aksesoris akrilik, dan produk jadi berbahan dasar akrilik.</h3>
+              <h3 class="mb-4">Dicky Laser merupakan perusahaan manufaktur terkemuka yang bergerak di bidang produksi lembaran akrilik, aksesoris akrilik, dan produk jadi berbahan dasar akrilik.</h3>
               <p>Produsen Akrilik No. 1 di Indonesia</p>
             </div>
           </div>

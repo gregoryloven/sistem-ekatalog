@@ -32,6 +32,11 @@ class PaymentController extends Controller
         ]);
     }
 
+    public function indexUser()
+    {
+        return view('home.payment');
+    }
+
     /**
      * Show the form for creating a new resource.
      *

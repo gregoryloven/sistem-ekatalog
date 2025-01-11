@@ -81,7 +81,7 @@
               <div class="overflow-hidden">
                 <div class="card mx-lg-3 bg-100" data-zanim-xs='{"delay":0.1,"duration":1}'>
                   <div class="card-body p-md-5">
-                    <h4 class="mb-3">Login with Freya</h4>
+                    <h4 class="mb-3">Login</h4>
                     <form class="text-start mt-4">
                       <div class="row align-items-center">
                         <div class="col-12">

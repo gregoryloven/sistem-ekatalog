@@ -8,7 +8,7 @@
                 <li><a class="dropdown-item" href="/purchase-request">Form Pemesanan</a></li>
             </ul> -->
             <ul class="navbar-nav py-3 py-lg-0 mt-1 mb-2 my-lg-0 ms-lg-n1">
-                <li><a class="dropdown-item" href="/payment">Form Pembayaran</a></li>
+                <li><a class="dropdown-item" href="/payment-user">Form Pembayaran</a></li>
             </ul>
             <ul class="navbar-nav ms-lg-auto flex-row justify-content-center py-3 py-lg-0 me-n2">
             
