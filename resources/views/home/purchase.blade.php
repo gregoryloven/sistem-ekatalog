@@ -203,7 +203,7 @@
                 products.map((nama, i) => `${i + 1}. ${nama} (${quantities[i]} pcs)`).join('\n');
 
             const encodedMessage = encodeURIComponent(message);
-            const whatsappNumber = '6282236639255';
+            const whatsappNumber = '6282132465830';
             const whatsappUrl = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodedMessage}`;
             window.location.href = whatsappUrl;
         }
