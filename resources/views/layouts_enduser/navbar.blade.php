@@ -4,8 +4,11 @@
             <div class="freya-logo">Home</div>
         </a><button class="navbar-toggler p-0 border-0" type="button" data-bs-toggle="collapse" data-bs-target="#primaryNavbarCollapse" aria-controls="primaryNavbarCollapse" aria-expanded="false" aria-label="Toggle navigation"><span class="hamburger hamburger--emphatic"><span class="hamburger-box"><span class="hamburger-inner"></span></span></span></button>
         <div class="collapse navbar-collapse" id="primaryNavbarCollapse">
-            <ul class="navbar-nav py-3 py-lg-0 mt-1 mb-2 my-lg-0 ms-lg-n1">
+            <!-- <ul class="navbar-nav py-3 py-lg-0 mt-1 mb-2 my-lg-0 ms-lg-n1">
                 <li><a class="dropdown-item" href="/purchase-request">Form Pemesanan</a></li>
+            </ul> -->
+            <ul class="navbar-nav py-3 py-lg-0 mt-1 mb-2 my-lg-0 ms-lg-n1">
+                <li><a class="dropdown-item" href="/payment-user">Form Pembayaran</a></li>
             </ul>
             <ul class="navbar-nav ms-lg-auto flex-row justify-content-center py-3 py-lg-0 me-n2">
             

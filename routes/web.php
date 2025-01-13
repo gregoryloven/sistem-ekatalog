@@ -29,5 +29,9 @@ route::middleware(['auth'])->group(function () {
 Route::get('/purchase-request/cariProduk', [App\Http\Controllers\PurchaseRequestController::class, 'cariProduk']);
 
 Route::resource('purchase-request', PurchaseRequestController::class);
+Route::resource('payment', PaymentController::class);
+Route::get('/filter-payments', [App\Http\Controllers\PaymentController::class, 'filterPayments']);
+Route::get('/payment-user', [App\Http\Controllers\PaymentController::class, 'indexUser']);
+
 
 Route::get('/home', 'HomeController@index')->name('home');
