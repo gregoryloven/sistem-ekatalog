@@ -196,10 +196,10 @@
             const quantities = @json(session('data.quantities')); // Ambil dari sesi
 
             const message = `Halo Kak,\n` +
-                `**Nama Penerima:** ${namaPenerima}\n` +
-                `**No HP:** ${noHp}\n` +
-                `**Alamat Penerima:** ${alamatPenerima}\n\n` +
-                `**Nama Produk:**\n` +
+                `*Nama Penerima:* ${namaPenerima}\n` +
+                `*No HP:* ${noHp}\n` +
+                `*Alamat Penerima:* ${alamatPenerima}\n\n` +
+                `*Nama Produk:*\n` +
                 products.map((nama, i) => `${i + 1}. ${nama} (${quantities[i]} pcs)`).join('\n');
 
             const encodedMessage = encodeURIComponent(message);
