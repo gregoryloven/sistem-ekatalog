@@ -35,6 +35,7 @@
                         <option value="-1">Ditolak</option>
                     </select>
                     <br>
+
                     <div class="table-responsive">
                         <table class="table table-bordered" style="text-align: center;" id="myTable">
                             <thead>
@@ -64,6 +65,16 @@
                                         <button type="button" class="btn btn-icon btn-danger" onclick="showConfirmationModal('delete', {{ $d->id }})">
                                             <i class="fas fa-times"></i>
                                         </button>
+                                        @elseif($d->status == 0)
+                                            <!-- Lunas alert -->
+                                            <div class="alert alert-success alert-dismissible fade show alert-sm" role="alert">
+                                                Lunas
+                                            </div>
+                                        @elseif($d->status == -1)
+                                            <!-- Ditolak alert -->
+                                            <div class="alert alert-danger alert-dismissible fade show alert-sm" role="alert">
+                                                Ditolak
+                                            </div>
                                         @endif
                                     </td>
                                 </tr>
@@ -177,18 +188,40 @@
                 table.clear(); // Hapus semua data sebelumnya di tabel
                 if (response.data && response.data.length > 0) {
                     response.data.forEach(item => {
+                        let statusButton = '';
+                        if (item.status === 1) {
+                            statusButton = `
+                                <a href="#" class="btn btn-success" onclick="showConfirmationModal('edit', ${item.id})"><i class="fas fa-check"></i></a>
+                                <button class="btn btn-danger" onclick="showConfirmationModal('delete', ${item.id})"><i class="fas fa-times"></i></button>
+                            `;
+                        } else if (item.status === 0) {
+                            statusButton = `
+                                <div class="alert alert-success alert-dismissible fade show alert-sm" role="alert">Lunas</div>
+                            `;
+                        } else {
+                            statusButton = `
+                                <div class="alert alert-danger alert-dismissible fade show alert-sm" role="alert">Ditolak</div>
+                            `;
+                        }
                         table.row.add([
                             item.id,
                             item.kode,
                             `<img src="/foto/${item.foto}" height="80px" style="cursor: pointer;" data-toggle="modal">`,
-                            item.status === 1
-                                ? `<a href="#" class="btn btn-success" onclick="showConfirmationModal('edit', ${item.id})"><i class="fas fa-check"></i></a>
-                                   <button class="btn btn-danger" onclick="showConfirmationModal('delete', ${item.id})"><i class="fas fa-times"></i></button>`
-                                : ''
+                            statusButton
                         ]);
                     });
                 }
                 table.draw(); // Render ulang tabel
+
+                // Event listener untuk gambar agar bisa membuka modal gambar
+                document.querySelectorAll('img[data-toggle="modal"]').forEach(img => {
+                    img.addEventListener('click', function () {
+                        const modalImage = document.getElementById('modalImage');
+                        modalImage.src = this.src;
+                        const imageModal = new bootstrap.Modal(document.getElementById('imageModal'));
+                        imageModal.show();
+                    });
+                });
             },
             error: function () {
                 console.error('Terjadi kesalahan saat memuat data.');
