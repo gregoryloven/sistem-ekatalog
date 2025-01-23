@@ -46,8 +46,9 @@ class PurchaseRequestController extends Controller
      */
     public function store(Request $request)
     {
-        $productIds = $request->input('products');
-        $quantities = $request->input('quantities');
+        $purchaseId = $request->input('purchase_id'); // Pastikan ID pembelian sudah tersedia
+        $productIds = $request->input('produk'); // Array ID produk
+        $quantities = $request->input('jumlah'); // Array jumlah produk
 
         $today = Carbon::now()->format('Ymd');
 
@@ -77,34 +78,43 @@ class PurchaseRequestController extends Controller
 
         $purchaseId = $purchaseRequest->id;
 
+        if (!$productIds || !$quantities) {
+            return back()->with('error', 'Produk dan jumlah harus diisi.');
+        }
+    
         foreach ($productIds as $index => $productId) {
             $quantity = $quantities[$index];
-
-            PurchaseRequestDetail::create([
-                'purchase_id' => $purchaseId,
-                'product_id' => $productId,
-                'qty' => $quantity,
-            ]);
-        }
-
-        $productsWithNames = [];
-        foreach ($productIds as $productId) {
-            $product = Product::find($productId);
-            if ($product) {
-                $productsWithNames[] = $product->nama; // Asumsi 'nama' adalah kolom nama produk
+    
+            if ($productId && $quantity > 0) {
+                // Simpan detail ke database
+                PurchaseRequestDetail::create([
+                    'purchase_id' => $purchaseId,
+                    'product_id' => $productId,
+                    'qty' => $quantity,
+                ]);
             }
         }
 
-        // Store data in session for WhatsApp message
-        session([
-            'data' => [
-                'nama_penerima' => $request->input('nama_penerima'),
-                'no_telp_penerima' => $request->input('no_telp_penerima'),
-                'alamat_penerima' => $request->input('alamat_penerima'),
-                'products' => $productsWithNames,
-                'quantities' => $quantities,
-            ]
-        ]);
+        // $productsWithNames = [];
+        // foreach ($productIds as $productId) {
+        //     $product = Product::find($productId);
+        //     if ($product) {
+        //         $productsWithNames[] = $product->nama; // Asumsi 'nama' adalah kolom nama produk
+        //     }
+        // }
+
+        // // Store data in session for WhatsApp message
+        // session([
+        //     'data' => [
+        //         'nama_penerima' => $request->input('nama_penerima'),
+        //         'no_telp_penerima' => $request->input('no_telp_penerima'),
+        //         'alamat_penerima' => $request->input('alamat_penerima'),
+        //         'products' => $productsWithNames,
+        //         'quantities' => $quantities,
+        //     ]
+        // ]);
+
+        // dd($request->all());
 
         return redirect()->back()->with('success', 'Pesanan berhasil dibuat dengan nomor: ' . $noPesanan);
     }

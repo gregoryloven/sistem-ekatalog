@@ -60,7 +60,7 @@
                                                     <th style="text-align: center; vertical-align: middle;">Aksi</th>
                                                 </tr>
                                             </thead>
-                                            <tbody id="productTable">
+                                            <tbody id="productTableBody">
                                                 <!-- Produk akan ditambahkan di sini -->
                                             </tbody>
                                         </table>
@@ -85,132 +85,67 @@
 @endsection
 
 @section('javascript')
-    <script>
-        const productTable = document.getElementById('productTable');
-        const addRowButton = document.getElementById('addrow');
-        const purchaseForm = document.getElementById('purchaseForm');
-        let products = []; // Inisialisasi array produk kosong
+<script>
+    document.getElementById('addrow').addEventListener('click', function() {
+        // Ambil data produk dari server
+        fetch('/purchase-request/cariProduk')
+            .then(response => response.json())
+            .then(data => {
+                const productOptions = data.map(product => `<option value="${product.id}">${product.nama}</option>`).join('');
 
-        // Fungsi untuk mengambil data produk dari API
-        async function fetchProducts() {
-            try {
-                const response = await fetch('/purchase-request/cariProduk'); // Sesuaikan endpoint jika perlu
-                const data = await response.json();
-                products = data; // Simpan produk yang diterima
-            } catch (error) {
-                console.error('Gagal mengambil data produk:', error);
-            }
-        }
+                // Tambahkan baris baru ke tabel
+                const tableBody = document.getElementById('productTableBody');
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td>
+                        <select class="form-control" name="produk[]" required>
+                            <option value="">Pilih Produk</option>
+                            ${productOptions}
+                        </select>
+                    </td>
+                    <td style="text-align: center;">
+                        <input type="number" name="jumlah[]" class="form-control" style="width: 80px; margin: 0 auto;" min="1" required>
+                    </td>
+                    <td style="text-align: center;">
+                        <button type="button" class="btn btn-danger btn-sm remove-row">Hapus</button>
+                    </td>
+                `;
 
-        // Fungsi untuk menambahkan baris produk ke tabel
-        function addProductRow() {
-            const row = document.createElement('tr');
+                tableBody.appendChild(newRow);
 
-            // Dropdown produk
-            const productDropdown = document.createElement('select');
-            productDropdown.classList.add('form-control');
-            productDropdown.style.width = '100%'; // Set lebar yang proporsional
-
-            // Tambahkan opsi produk ke dalam dropdown
-            if (products.length === 0) {
-                const option = document.createElement('option');
-                option.value = '';
-                option.textContent = 'Produk tidak tersedia';
-                option.disabled = true; // Nonaktifkan opsi
-                productDropdown.appendChild(option);
-            } else {
-                products.forEach(product => {
-                    const option = document.createElement('option');
-                    option.value = product.id; // Sesuaikan dengan key produk di database
-                    option.textContent = product.nama; // Sesuaikan dengan nama produk
-                    productDropdown.appendChild(option);
+                // Tambahkan event listener untuk tombol hapus
+                newRow.querySelector('.remove-row').addEventListener('click', function() {
+                    newRow.remove();
                 });
-            }
+            })
+            .catch(error => console.error('Error fetching products:', error));
+    });
 
+    function redirectToWhatsApp() {
+        const namaPenerima = '{{ session('data.nama_penerima') }}';
+        const noHp = '{{ session('data.no_telp_penerima') }}';
+        const alamatPenerima = '{{ session('data.alamat_penerima') }}';
+        const products = @json(session('data.products')); // Ambil dari sesi
+        const quantities = @json(session('data.quantities')); // Ambil dari sesi
 
-            // Input jumlah
-            const productQuantity = document.createElement('input');
-            productQuantity.type = 'number';
-            productQuantity.classList.add('form-control');
-            productQuantity.style.width = '100%'; // Set lebar yang proporsional
-            productQuantity.min = 1;
-            productQuantity.value = 1;
+        const message = `Halo Kak,
+    ` +
+            `*Nama Penerima:* ${namaPenerima}
+    ` +
+            `*No HP:* ${noHp}
+    ` +
+            `*Alamat Penerima:* ${alamatPenerima}
 
-            // Tombol hapus
-            const removeButton = document.createElement('button');
-            removeButton.classList.add('btn', 'btn-danger');
-            removeButton.classList.add('btn', 'btn-hapus');
-            removeButton.textContent = 'Hapus';
-            removeButton.onclick = function() {
-                productTable.removeChild(row);
-            };
+    ` +
+            `*Nama Produk:*
+    ` +
+            products.map((nama, i) => `${i + 1}. ${nama} (${quantities[i]} pcs)`).join('\n');
 
-            // Menambahkan elemen-elemen ke dalam baris
-            const tdProduct = document.createElement('td');
-            const tdQuantity = document.createElement('td');
-            const tdAction = document.createElement('td');
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappNumber = '6282132465830';
+        const whatsappUrl = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodedMessage}`;
+        window.location.href = whatsappUrl;
+    }
 
-            tdAction.style.textAlign = 'center';
-
-            tdProduct.appendChild(productDropdown);
-            tdQuantity.appendChild(productQuantity);
-            tdAction.appendChild(removeButton);
-
-            row.appendChild(tdProduct);
-            row.appendChild(tdQuantity);
-            row.appendChild(tdAction);
-
-            // Menambahkan baris ke tabel
-            productTable.appendChild(row);
-
-            addHiddenInputToForm(productDropdown, productQuantity);
-        }
-
-        // Fungsi untuk menambahkan input tersembunyi ke dalam form
-        function addHiddenInputToForm(productDropdown, productQuantity) {
-            // Buat input tersembunyi untuk produk
-            const productInput = document.createElement('input');
-            productInput.type = 'hidden';
-            productInput.name = 'products[]'; // Input array untuk produk
-            productInput.value = productDropdown.value; // ID produk yang dipilih
-
-            // Buat input tersembunyi untuk jumlah produk
-            const quantityInput = document.createElement('input');
-            quantityInput.type = 'hidden';
-            quantityInput.name = 'quantities[]'; // Input array untuk jumlah
-            quantityInput.value = productQuantity.value; // Jumlah produk yang dipilih
-
-            // Tambahkan input tersembunyi ke dalam form
-            purchaseForm.appendChild(productInput);
-            purchaseForm.appendChild(quantityInput);
-        }
-
-        // Event listener untuk tombol "Tambah Produk"
-        addRowButton.addEventListener('click', addProductRow);
-
-        function redirectToWhatsApp() {
-            const namaPenerima = '{{ session('data.nama_penerima') }}';
-            const noHp = '{{ session('data.no_telp_penerima') }}';
-            const alamatPenerima = '{{ session('data.alamat_penerima') }}';
-            const products = @json(session('data.products')); // Ambil dari sesi
-            const quantities = @json(session('data.quantities')); // Ambil dari sesi
-
-            const message = `Halo Kak,\n` +
-                `*Nama Penerima:* ${namaPenerima}\n` +
-                `*No HP:* ${noHp}\n` +
-                `*Alamat Penerima:* ${alamatPenerima}\n\n` +
-                `*Nama Produk:*\n` +
-                products.map((nama, i) => `${i + 1}. ${nama} (${quantities[i]} pcs)`).join('\n');
-
-            const encodedMessage = encodeURIComponent(message);
-            const whatsappNumber = '6282132465830';
-            const whatsappUrl = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodedMessage}`;
-            window.location.href = whatsappUrl;
-        }
-
-
-
-        // Panggil fungsi untuk fetch produk saat halaman dimuat
-        document.addEventListener('DOMContentLoaded', fetchProducts);
-    </script>
+</script>
 @endsection
