@@ -95,24 +95,24 @@ class PurchaseRequestController extends Controller
             }
         }
 
-        // $productsWithNames = [];
-        // foreach ($productIds as $productId) {
-        //     $product = Product::find($productId);
-        //     if ($product) {
-        //         $productsWithNames[] = $product->nama; // Asumsi 'nama' adalah kolom nama produk
-        //     }
-        // }
+        $productsWithNames = [];
+        foreach ($productIds as $productId) {
+            $product = Product::find($productId);
+            if ($product) {
+                $productsWithNames[] = $product->nama; // Asumsi 'nama' adalah kolom nama produk
+            }
+        }
 
-        // // Store data in session for WhatsApp message
-        // session([
-        //     'data' => [
-        //         'nama_penerima' => $request->input('nama_penerima'),
-        //         'no_telp_penerima' => $request->input('no_telp_penerima'),
-        //         'alamat_penerima' => $request->input('alamat_penerima'),
-        //         'products' => $productsWithNames,
-        //         'quantities' => $quantities,
-        //     ]
-        // ]);
+        // Store data in session for WhatsApp message
+        session([
+            'data' => [
+                'nama_penerima' => $request->input('nama_penerima'),
+                'no_telp_penerima' => $request->input('no_telp_penerima'),
+                'alamat_penerima' => $request->input('alamat_penerima'),
+                'products' => $productsWithNames,
+                'quantities' => $quantities,
+            ]
+        ]);
 
         // dd($request->all());
 
