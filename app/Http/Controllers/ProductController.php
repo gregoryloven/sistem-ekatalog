@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\PurchaseRequestDetail;
+use App\Models\PurchaseRequest;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -116,19 +118,45 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        try {
-            $imgFolder = 'foto/';
-            $filePath = $imgFolder . $product->foto;
+        // try {
+        //     $imgFolder = 'foto/';
+        //     $filePath = $imgFolder . $product->foto;
 
-            if (file_exists($filePath)) {
-                unlink($filePath);
-            }
-            $product->delete();
+        //     if (file_exists($filePath)) {
+        //         unlink($filePath);
+        //     }
+        //     $product->delete();
             
-            return redirect()->route('product.index')->withToastSuccess('Data produk berhasil dihapus');
-        } catch (\Exception $e) {
-            return redirect()->route('product.index')->withToastError('Data produk gagal dihapus karena digunakan pada data lain');
+        //     return redirect()->route('product.index')->withToastSuccess('Data produk berhasil dihapus');
+        // } catch (\Exception $e) {
+        //     return redirect()->route('product.index')->withToastError('Data produk gagal dihapus karena digunakan pada data lain');
+        // }
+
+        $imgFolder = 'foto/';
+        $filePath = $imgFolder . $product->foto;
+
+        if (file_exists($filePath)) {
+            unlink($filePath);
         }
+
+        $prdetails = PurchaseRequestDetail::where('product_id', $product->id)->get();
+
+        foreach ($prdetails as $prd) {
+            // Menghapus PurchaseRequestDetail
+            $prd->delete();
+
+            // Menghapus PurchaseRequest terkait jika tidak ada lagi PurchaseRequestDetail yang terkait
+            $purchase = PurchaseRequest::find($prd->purchase_id);
+
+            // Pastikan purchase_request memiliki purchase_request_details lain yang tidak terkait dengan produk ini
+            if ($purchase && $purchase->purchaseRequestDetails->isEmpty()) {
+                $purchase->delete();
+            }
+        }
+
+        $product->delete();
+        
+        return redirect()->route('product.index')->withToastSuccess('Data produk berhasil dihapus');
     }
 
     public function EditForm(Request $request)
