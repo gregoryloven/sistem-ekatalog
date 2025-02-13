@@ -44,8 +44,8 @@
                                             placeholder="Nama Penerima" required="required" />
                                     </div>
                                     <div class="col-12 mt-4">
-                                        <input class="form-control bg-white" type="text" name="no_telp_penerima"
-                                            placeholder="No HP" required="required" />
+                                        <input class="form-control bg-white" type="text" name="no_telp_penerima" id="no_telp_penerima"
+                                            placeholder="No HP" required="required" required pattern="[0-9]*" inputmode="numeric"/>
                                     </div>
                                     <div class="col-12 mt-4">
                                         <textarea class="form-control bg-white" rows="5" name="alamat_penerima" placeholder="Alamat Penerima"
@@ -86,6 +86,9 @@
 
 @section('javascript')
 <script>
+    document.getElementById("no_telp_penerima").addEventListener("input", function (e) {
+        this.value = this.value.replace(/\D/g, ""); // Hanya izinkan angka
+    });
     document.getElementById('addrow').addEventListener('click', function() {
         // Ambil data produk dari server
         fetch('/purchase-request/cariProduk')

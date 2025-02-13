@@ -8,6 +8,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\PurchaseRequest;
 use App\Models\PurchaseRequestDetail;
+use Auth;
 
 class PurchaseRequestController extends Controller
 {
@@ -18,8 +19,14 @@ class PurchaseRequestController extends Controller
      */
     public function index()
     {
-        $data = PurchaseRequest::all();
-        return view('home.purchase', compact('data'));
+        $data = PurchaseRequest::orderBy('id', 'desc')->get();
+        $auth = Auth::user();
+
+        if($auth) {
+            return view('purchase.index', compact('data'));
+        } else {
+            return view('home.purchase');
+        }
     }
 
     public function cariProduk()
