@@ -19,17 +19,17 @@ class PurchaseRequestController extends Controller
      */
     public function index()
     {
-        $data = PurchaseRequest::all();
-        return view('home.purchase', compact('data'));
+        // $data = PurchaseRequest::all();
+        // return view('home.purchase', compact('data'));
 
-        // $data = PurchaseRequest::orderBy('id', 'desc')->get();
-        // $auth = Auth::user();
+        $data = PurchaseRequest::orderBy('id', 'desc')->get();
+        $auth = Auth::user();
 
-        // if($auth) {
-        //     return view('purchase.index', compact('data'));
-        // } else {
-        //     return view('home.purchase');
-        // }
+        if($auth) {
+            return view('purchase.index', compact('data'));
+        } else {
+            return view('home.purchase');
+        }
     }
 
     public function cariProduk()
@@ -128,6 +128,18 @@ class PurchaseRequestController extends Controller
 
         return redirect()->back()->with('success', 'Pesanan berhasil dibuat dengan nomor: ' . $noPesanan);
     }
+
+    public function showPurchaseDetails($purchaseId)
+    {
+        $details = PurchaseRequestDetail::where('purchase_id', $purchaseId)->get();
+
+        foreach ($details as $detail) {
+            $detail->product_name = Product::find($detail->product_id)->nama ?? 'Nama Produk Tidak Ditemukan';
+        }
+
+        return response()->json($details); // Pastikan mengembalikan JSON array
+    }
+
 
     /**
      * Display the specified resource.

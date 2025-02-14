@@ -43,17 +43,14 @@
                                     <td style="text-align: center; vertical-align: middle;">{{$d->nama_penerima}}</td>
                                     <td style="text-align: center; vertical-align: middle;">{{$d->alamat_penerima}}</td>
                                     <td style="text-align: center; vertical-align: middle;">{{$d->no_telp_penerima}}</td>
-                                    <td style="text-align: center; vertical-align: middle;">{{$d->created_at}}</td>
-                                    <!-- <td style="text-align: center; vertical-align: middle;">
-                                        <form id="delete-form-{{ $d->id }}" action="{{ route('product.destroy', $d->id) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <a href="#modalEdit" data-toggle="modal" class="btn btn-icon btn-warning" onclick="EditForm({{ $d->id }})"><i class="far fa-edit"></i></a>
-
-                                            <input type="hidden" class="form-control" id='id' name='id' placeholder="Type your name" value="{{$d->id}}">
-                                            <button type="button" class="btn btn-icon btn-danger" data-id="{{ $d->id }}"><i class="fa fa-trash"></i></button>                                   
-                                        </form>
-                                    </td> -->
+                                    <td style="text-align: center; vertical-align: middle;">
+                                        {{ date('j F Y H:i:s', strtotime($d->created_at)) }}
+                                    </td>
+                                    <td style="text-align: center; vertical-align: middle;">
+                                        <button type="button" class="btn btn-info" data-toggle="modal" data-id="{{ $d->id }}" data-no_pesanan="{{ $d->no_pesanan }}" data-target="#detailModal{{ $d->id }}">
+                                            Detail
+                                        </button>
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -63,6 +60,35 @@
             </div>
 
     </section>
+</div>
+
+<div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailModalLabel">Detail Pemesanan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Produk</th>
+                            <th>Jumlah</th>
+                        </tr>
+                    </thead>
+                    <tbody id="modalDetailBody">
+                        <!-- Data akan dimasukkan melalui AJAX -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- CREATE WITH MODAL -->
@@ -119,6 +145,76 @@
 
 @section('javascript')
 <script>
+    // document.querySelectorAll('.btn-info').forEach(button => {
+    //     button.addEventListener('click', function () {
+    //         var purchaseId = this.getAttribute('data-bs-target').replace('#detailModal', '');
+
+    //         // Menampilkan modal saat tombol "Detail" diklik
+    //         var modal = new bootstrap.Modal(document.getElementById('detailModal' + purchaseId));
+
+    //         // Melakukan AJAX request untuk mengambil detail berdasarkan purchaseId
+    //         fetch(`/purchase/${purchaseId}/details`)
+    //             .then(response => response.json())
+    //             .then(data => {
+    //                 // Mengisi modal dengan data
+    //                 var content = '<h6>Product Details:</h6><ul>';
+    //                 data.forEach(item => {
+    //                     content += `
+    //                         <li>
+    //                             <strong>Product:</strong> ${item.product_name}<br>
+    //                             <strong>Quantity:</strong> ${item.qty}
+    //                         </li>
+    //                     `;
+    //                 });
+    //                 content += '</ul>';
+
+    //                 // Menyisipkan konten ke dalam modal
+    //                 document.getElementById('modal-body-content' + purchaseId).innerHTML = content;
+
+    //                 // Menampilkan modal
+    //                 modal.show();
+    //             })
+    //             .catch(error => console.error('Error fetching purchase details:', error));
+    //     });
+    // });
+
+    $(document).ready(function() {
+        $('.btn-info').click(function() {
+            let purchaseId = $(this).data('id');
+            let noPesanan = $(this).data('no_pesanan');
+
+            $('#detailModalLabel').text(`Detail Pemesanan (${noPesanan})`);
+            $('#modalDetailBody').empty();
+            
+            $.ajax({
+                url: '/purchase-details/' + purchaseId,
+                type: 'GET',
+                success: function(response) {
+                    console.log(response); // Tambahkan ini untuk melihat output response
+                    
+                    if (Array.isArray(response)) {
+                        response.forEach(function(detail) {
+                            $('#modalDetailBody').append(`
+                                <tr>
+                                    <td>${detail.product_name}</td>
+                                    <td>${detail.qty}</td>
+                                </tr>
+                            `);
+                        });
+                        $('#detailModal').modal('show');
+                    } else {
+                        alert('Data yang diterima bukan array');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                    alert('Terjadi kesalahan saat mengambil data.');
+                }
+            });
+
+        });
+    });
+
 
 $(document).ready(function() {
     $(".input-harga").on("input", function() {
