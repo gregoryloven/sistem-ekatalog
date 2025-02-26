@@ -30,6 +30,7 @@
                                     <th>Alamat</th>
                                     <th>Telepon</th>
                                     <th>Tanggal Pesanan</th>
+                                    <th>Status Pembayaran</th>
                                     <th width="20%"><i class="fa fa-cog"></i></th>
                                 </tr>
                             </thead>
@@ -47,6 +48,22 @@
                                         {{ date('j F Y H:i:s', strtotime($d->created_at)) }}
                                     </td>
                                     <td style="text-align: center; vertical-align: middle;">
+                                        @if($d->status == 1)
+                                            <button type="button" class="btn btn-success" data-toggle="modal" 
+                                                data-target="#konfirmasiModal" data-id="{{ $d->id }}" data-no_pesanan="{{ $d->no_pesanan }}">
+                                                <i class="fas fa-check"></i> Konfirmasi
+                                            </button>
+                                            <button type="button" class="btn btn-danger" data-toggle="modal" 
+                                                data-target="#tolakModal" data-id="{{ $d->id }}" data-no_pesanan="{{ $d->no_pesanan }}">
+                                                <i class="fas fa-times"></i> Tolak
+                                            </button>
+                                        @elseif($d->status == 0)
+                                            <div class="alert alert-success">Lunas</div>
+                                        @elseif($d->status == -1)
+                                            <div class="alert alert-danger">Ditolak</div>
+                                        @endif
+                                    </td>
+                                    <td style="text-align: center; vertical-align: middle;">
                                         <button type="button" class="btn btn-info" data-toggle="modal" data-id="{{ $d->id }}" data-no_pesanan="{{ $d->no_pesanan }}" data-target="#detailModal{{ $d->id }}">
                                             Detail
                                         </button>
@@ -60,6 +77,57 @@
             </div>
 
     </section>
+</div>
+
+<div class="modal fade" id="konfirmasiModal" tabindex="-1" role="dialog" aria-labelledby="konfirmasiModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="konfirmasiModalLabel">Konfirmasi Pembayaran</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="konfirmasiForm" method="POST" action="{{ route('konfirmasi.pembayaran', ':id') }}">
+                @csrf
+                @method('PUT')
+                <div class="modal-body">
+                    <input type="hidden" id="order_id" name="order_id">
+                    <p>Apakah Anda yakin ingin mengonfirmasi pembayaran untuk pesanan <strong id="order_no"></strong>?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-success">Konfirmasi</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Tolak Pembayaran -->
+<div class="modal fade" id="tolakModal" tabindex="-1" role="dialog" aria-labelledby="tolakModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tolakModalLabel">Tolak Pembayaran</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="tolakForm" method="POST" action="{{ route('tolak.pembayaran', ':id') }}">
+                @csrf
+                @method('PUT')
+                <div class="modal-body">
+                    <input type="hidden" id="order_id_tolak" name="order_id">
+                    <p>Apakah Anda yakin ingin menolak pembayaran untuk pesanan <strong id="order_no_tolak"></strong>?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-danger">Tolak</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
@@ -178,6 +246,30 @@
     //     });
     // });
 
+    // Konfirmasi Pembayaran
+    $('#konfirmasiModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var id = button.data('id');
+        var noPesanan = button.data('no_pesanan');
+        
+        var modal = $(this);
+        modal.find('#order_id').val(id);
+        modal.find('#order_no').text(noPesanan);
+        modal.find('#konfirmasiForm').attr('action', '{{ route("konfirmasi.pembayaran", "") }}/' + id);
+    });
+
+    // Tolak Pembayaran
+    $('#tolakModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var id = button.data('id');
+        var noPesanan = button.data('no_pesanan');
+        
+        var modal = $(this);
+        modal.find('#order_id_tolak').val(id);
+        modal.find('#order_no_tolak').text(noPesanan);
+        modal.find('#tolakForm').attr('action', '{{ route("tolak.pembayaran", "") }}/' + id);
+    });
+
     $(document).ready(function() {
         $('.btn-info').click(function() {
             let purchaseId = $(this).data('id');
@@ -246,24 +338,24 @@ function EditForm(id)
   });
 }
 
-$(document).on('click', '.btn-danger', function(e) {
-    e.preventDefault();
+// $(document).on('click', '.btn-danger', function(e) {
+//     e.preventDefault();
     
-    var id = $(this).data('id');
+//     var id = $(this).data('id');
     
-    Swal.fire({
-        title: 'Apakah Anda Yakin?',
-        text: "Data akan dihapus!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#d33',
-        confirmButtonText: 'Hapus!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            $('#delete-form-' + id).submit();
-        }
-    });
-});
+//     Swal.fire({
+//         title: 'Apakah Anda Yakin?',
+//         text: "Data akan dihapus!",
+//         icon: 'warning',
+//         showCancelButton: true,
+//         confirmButtonColor: '#d33',
+//         confirmButtonText: 'Hapus!'
+//     }).then((result) => {
+//         if (result.isConfirmed) {
+//             $('#delete-form-' + id).submit();
+//         }
+//     });
+// });
 
 </script>
 @endsection

@@ -30,6 +30,10 @@ Route::get('/purchase-request/cariProduk', [App\Http\Controllers\PurchaseRequest
 
 Route::get('/purchase-details/{purchaseId}', [App\Http\Controllers\PurchaseRequestController::class, 'showPurchaseDetails']);
 
+Route::put('/konfirmasi-pembayaran/{id}', [App\Http\Controllers\PurchaseRequestController::class, 'konfirmasiPembayaran'])->name('konfirmasi.pembayaran');
+
+Route::put('/tolak-pembayaran/{id}', [App\Http\Controllers\PurchaseRequestController::class, 'tolakPembayaran'])->name('tolak.pembayaran');
+
 Route::resource('purchase-request', PurchaseRequestController::class);
 Route::resource('payment', PaymentController::class);
 Route::get('/filter-payments', [App\Http\Controllers\PaymentController::class, 'filterPayments']);

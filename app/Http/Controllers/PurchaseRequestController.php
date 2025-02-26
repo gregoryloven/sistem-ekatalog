@@ -38,6 +38,24 @@ class PurchaseRequestController extends Controller
         return response()->json($products);
     }
 
+    public function konfirmasiPembayaran($id)
+    {
+        $order = PurchaseRequest::findOrFail($id);
+        $order->status = 0; // 0 = Lunas
+        $order->save();
+    
+        return redirect()->back()->with('success', 'Pembayaran berhasil dikonfirmasi.');
+    }
+
+        public function tolakPembayaran($id)
+    {
+        $order = PurchaseRequest::findOrFail($id);
+        $order->status = -1; // -1 = Ditolak
+        $order->save();
+
+        return redirect()->back()->with('error', 'Pembayaran telah ditolak.');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
