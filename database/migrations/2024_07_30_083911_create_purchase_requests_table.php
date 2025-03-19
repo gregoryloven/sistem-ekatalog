@@ -19,6 +19,7 @@ class CreatePurchaseRequestsTable extends Migration
             $table->string('nama_penerima');
             $table->string('alamat_penerima');
             $table->string('no_telp_penerima');
+            $table->integer('total');
             $table->integer('status');
             $table->timestamps();
         });

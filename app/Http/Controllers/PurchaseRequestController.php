@@ -102,6 +102,7 @@ class PurchaseRequestController extends Controller
             'no_telp_penerima' => $request->input('no_telp_penerima'),
             'alamat_penerima' => $request->input('alamat_penerima'),
             'status' => 1,
+            'total' => 0,
         ]);
 
         $purchaseId = $purchaseRequest->id;
@@ -109,17 +110,27 @@ class PurchaseRequestController extends Controller
         if (!$productIds || !$quantities) {
             return back()->with('error', 'Produk dan jumlah harus diisi.');
         }
+
+        $totalOrder = 0;
     
         foreach ($productIds as $index => $productId) {
             $quantity = $quantities[$index];
     
             if ($productId && $quantity > 0) {
-                // Simpan detail ke database
-                PurchaseRequestDetail::create([
-                    'purchase_id' => $purchaseId,
-                    'product_id' => $productId,
-                    'qty' => $quantity,
-                ]);
+                $product = Product::find($productId);
+
+                if ($product) {
+                    $subtotal = $quantity * $product->harga; // Hitung subtotal
+                    $totalOrder += $subtotal;
+        
+                    // Simpan detail ke database dengan subtotal
+                    PurchaseRequestDetail::create([
+                        'purchase_id' => $purchaseId,
+                        'product_id' => $productId,
+                        'qty' => $quantity,
+                        'subtotal' => $subtotal, // Tambahkan kolom subtotal
+                    ]);
+                }
             }
         }
 
@@ -143,19 +154,35 @@ class PurchaseRequestController extends Controller
         ]);
 
         // dd($request->all());
+        $purchaseRequest->update(['total' => $totalOrder]);
 
         return redirect()->back()->with('success', 'Pesanan berhasil dibuat dengan nomor: ' . $noPesanan);
     }
 
     public function showPurchaseDetails($purchaseId)
     {
-        $details = PurchaseRequestDetail::where('purchase_id', $purchaseId)->get();
+        $details = PurchaseRequestDetail::where('purchase_id', $purchaseId)
+        ->get()
+        ->map(function ($detail) {
+            $product = Product::find($detail->product_id);
+            return [
+                'product_name' => $product->nama ?? 'Nama Produk Tidak Ditemukan',
+                'harga' => number_format($product->harga ?? 0, 0, ',', '.'), // Ambil harga produk
+                'qty' => $detail->qty ?? 0,
+                'subtotal' => number_format($detail->subtotal ?? 0, 0, ',', '.'), // Ambil subtotal yang sudah ada
+            ];
+        });
+        $total = PurchaseRequest::where('id', $purchaseId)->value('total') ?? 0;
 
-        foreach ($details as $detail) {
-            $detail->product_name = Product::find($detail->product_id)->nama ?? 'Nama Produk Tidak Ditemukan';
-        }
+        // foreach ($details as $detail) {
+        //     $detail->product_name = Product::find($detail->product_id)->nama ?? 'Nama Produk Tidak Ditemukan';
+        //     $detail->subtotal = number_format($detail->subtotal ?? 0, 0, ',', '.');
+        // }
 
-        return response()->json($details); // Pastikan mengembalikan JSON array
+        return response()->json([
+            'details' => $details,
+            'total' => number_format($total, 0, ',', '.'), // Jika total null, setel ke 0 // Tambahkan total dalam respons JSON
+        ]); // Pastikan mengembalikan JSON array
     }
 
 

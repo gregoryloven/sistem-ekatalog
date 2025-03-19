@@ -144,7 +144,9 @@
                     <thead>
                         <tr>
                             <th>Produk</th>
+                            <th>Harga</th>
                             <th>Jumlah</th>
+                            <th>Subtotal</th>
                         </tr>
                     </thead>
                     <tbody id="modalDetailBody">
@@ -284,18 +286,32 @@
                 success: function(response) {
                     console.log(response); // Tambahkan ini untuk melihat output response
                     
-                    if (Array.isArray(response)) {
-                        response.forEach(function(detail) {
+                    if (response.details && Array.isArray(response.details)) {
+                        $('#modalDetailBody').empty(); // Hapus isi modal sebelumnya
+
+                        // Menambahkan baris untuk detail produk
+                        response.details.forEach(function(detail) {
                             $('#modalDetailBody').append(`
                                 <tr>
                                     <td>${detail.product_name}</td>
+                                    <td>${detail.harga}</td>
                                     <td>${detail.qty}</td>
+                                    <td>${detail.subtotal}</td>
                                 </tr>
                             `);
                         });
+
+                        // Menambahkan baris untuk total
+                        $('#modalDetailBody').append(`
+                            <tr>
+                                <td colspan="3"><strong>Total</strong></td>
+                                <td><strong>${response.total}</strong></td>
+                            </tr>
+                        `);
+
                         $('#detailModal').modal('show');
                     } else {
-                        alert('Data yang diterima bukan array');
+                        alert('Data tidak valid atau tidak ditemukan.');
                     }
                 },
                 error: function(xhr, status, error) {
